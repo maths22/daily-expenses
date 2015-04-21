@@ -1,0 +1,19 @@
+{% if expense_list %}
+    <table>
+        <thead><tr><th>Item</th><th>Price</th><th>Date</th></tr></thead>
+    <tbody>
+    {% for expense in expense_list %}
+        <tr><td>{{ expense.item }}</td><td>{{ expense.price }}</td><td>{{ expense.date }}</td></tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    <p>No expenses have been recorded.</p>
+{% endif %}
+<br/>
+<form action="{% url 'expenses:add' %}" method="post">
+    {% csrf_token %}
+    <label for="item">Item: </label><input type="text" name="item" id="item" /><br/>
+    <label for="price">Price: </label><input type="number" name="price" id="price" step=".01"/><br/>
+<input type="submit" value="Add" />
+</form>
