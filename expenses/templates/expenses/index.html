@@ -1,28 +1,28 @@
 {% if expense_list %}
 <h2>All Items</h2>
-    <table border="1px">
-        <thead><tr><th>Date</th><th>Item</th><th>Price</th></tr></thead>
+<table border="1px">
+    <thead><tr><th>Date</th><th>Item</th><th>Price</th></tr></thead>
     <tbody>
     {% for expense in expense_list %}
         <tr><td>{{ expense.date | date:"M d, Y" }}</td><td>{{ expense.item }}</td><td>${{ expense.price }}</td></tr>
     {% endfor %}
-    <tr><td><em>Grand total:</em></td><td>{{ expense_totals.price__count }} Items</td><td>${{ expense_totals.price__sum }}</td></tr>
+        <tr><td><em>Grand total:</em></td><td>{{ expense_totals.price__count }} Items</td><td>${{ expense_totals.price__sum }}</td></tr>
     </tbody>
-    </table>
+</table>
 <h2>Summary by Day</h2>
-    <table border="1px">
-        <thead><tr><th>Date</th><th>Number of Items</th><th>Total Price</th></tr></thead>
+<table border="1px">
+    <thead><tr><th>Date</th><th>Number of Items</th><th>Total Price</th></tr></thead>
     <tbody>
     {% for expense in expense_by_day %}
         <tr><td>{{ expense.date | date:"M d, Y" }}</td><td>{{ expense.price__count }}</td><td>${{ expense.price__sum }}</td></tr>
     {% endfor %}
-    <tr><td><em>Grand total:</em></td><td>{{ expense_totals.price__count }}</td><td>${{ expense_totals.price__sum }}</td></tr>
+        <tr><td><em>Grand total:</em></td><td>{{ expense_totals.price__count }}</td><td>${{ expense_totals.price__sum }}</td></tr>
     </tbody>
-    </table>
+</table>
 {% else %}
     <p>No expenses have been recorded.</p>
 {% endif %}
-<br/>
+<h2>Add a new expense</h2>
 <form action="{% url 'expenses:index' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}

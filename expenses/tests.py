@@ -34,4 +34,5 @@ class ExpenseViewTests(TestCase):
         Expense(item="food2", price="7.00", date=timezone.now()-timedelta(days=2)).save()
         Expense(item="food3", price="50.22", date=timezone.now()-timedelta(days=2)).save()
         response = self.client.get(reverse('expenses:index'))
-        self.assertCountEqual(response.context['expense_by_day'], [{'date':date.today()-timedelta(days=2),'price__sum':Decimal('57.22'),'price__count':2},{'date':date.today(),'price__sum':Decimal('7.89'),'price__count':1}])
+        expected = [{'date':date.today()-timedelta(days=2),'price__sum':Decimal('57.22'),'price__count':2},{'date':date.today(),'price__sum':Decimal('7.89'),'price__count':1}]
+        self.assertCountEqual(response.context['expense_by_day'],expected)
